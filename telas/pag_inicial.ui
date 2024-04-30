@@ -30,7 +30,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>C:/Users/964742/Downloads/Meteoro_Calçados_Logo-removebg-preview.png</pixmap>
+     <pixmap>../../../../../964742/Downloads/Meteoro_Calçados_Logo-removebg-preview.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -71,7 +71,7 @@ color: rgb(255, 255, 255);</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
+   <widget class="QPushButton" name="bt_consulta">
     <property name="geometry">
      <rect>
       <x>790</x>
@@ -154,7 +154,7 @@ color: rgb(255, 255, 255);</string>
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>C:/Users/964742/Pictures/4745448.png</pixmap>
+     <pixmap>../../../../../964742/Pictures/4745448.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -173,7 +173,7 @@ color: rgb(255, 255, 255);</string>
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>C:/Users/964742/Pictures/3176088.png</pixmap>
+     <pixmap>../../../../../964742/Pictures/3176088.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -192,7 +192,7 @@ color: rgb(255, 255, 255);</string>
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>C:/Users/964742/Pictures/753173.png</pixmap>
+     <pixmap>../../../../../964742/Pictures/753173.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
