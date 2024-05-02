@@ -29,23 +29,49 @@ def inicial_estoque(): # cadastros
     principal.close()
     estoque.show()
     
-def cadastro_inicial(): # cadastro de produtos
+def cadastro_prod_inicial(): # cadastro de produtos
     principal.close()
-    cadastro.show()
+    cadastro_prod.show()
 
-# def consulta_inicial(): # não possui tela
-#     principal.close()
-#     consulta.show()
-#cadastro.ui
-#def cadastro_cadastro(): #função para cadastrar itens
-#def estoque_cadastro(): # função para ver os cadastros
+def disconect():
+    principal.close()
+    login.show()
+
+def exit():
+    login.close()
+
+def cadastro_fun_inicial():
+    principal.close()
+    cadastro_fun.show()
 
 # exit das páginas
 def exit_geral():
     principal.close()
     estoque.close()
-    cadastro.close()
+    cadastro_prod.close()
+    # consulta.close()
     login.show
+
+def voltar():
+    estoque.close()
+    cadastro_prod.close()
+    cadastro_fun.close()
+    principal.show()
+
+def salvar_banco1():
+    funCod = cadastro_fun.lineCod.Text()
+    funNome = cadastro_fun.lineNome.Text()
+    funSobre = cadastro_fun.lineSobre.Text()
+    funCPF = cadastro_fun.lineCPF.Text()
+    funTell = cadastro_fun.lineTell.Text()
+    funEmail = cadastro_fun.lineEmail.Text()
+    funCep = cadastro_fun.lineCep.Text()
+    funRua = cadastro_fun.lineRua.Text()
+    funNmr = cadastro_fun.lineNmr.Text()
+    funBairro = cadastro_fun.lineBairro.Text()
+    funCidade = cadastro_fun.lineCidade.Text()
+    funEstado = cadastro_fun.boxEstado.
+
 
 # definição de funções (campos)
 def campos_login():
@@ -59,6 +85,7 @@ def campos_login():
     cursor.execute(query, parametros)
 
     if cursor.fetchone() is not None:
+        login.close()
         chamar_principal()
     else:
         erro_login = QtWidgets.QErrorMessage()
@@ -71,13 +98,24 @@ def campos_login():
 principal = uic.loadUi('telas\pag_inicial.ui')
 login = uic.loadUi('telas\login.ui')
 estoque = uic.loadUi('telas\estoque.ui')
-cadastro = uic.loadUi('telas\cadastro.ui')
+cadastro_prod = uic.loadUi('telas\cadastro_prod.ui')
+cadastro_fun = uic.loadUi('telas\cadastro_fun.ui')
+
 
 # funções 'botões'
 login.bt_login.clicked.connect(campos_login) # botão 'login' --> tela 'principal'
-principal.bt_tela_cad.clicked.connect(cadastro_inicial) # botão 'cadastro de produtos' --> tela 'cadastro'
-principal.bt_estoque.clicked.connect(inicial_estoque) # botão 'estoque' --> tela 'estoque'
-#principal.bt_consulta.clicked.connect(consulta_inicial)
+login.bt_exit.clicked.connect(exit)
+principal.bt_cad_pro.clicked.connect(cadastro_prod_inicial) # botão 'cadastro de produtos' --> tela 'cadastro'
+principal.bt_estoque.clicked.connect(inicial_estoque) # botão 'estoque' --> tela 'estoque']
+principal.bt_cad_fun.clicked.connect(cadastro_fun_inicial)
+principal.bt_disconnect.clicked.connect(disconect)
+# botão voltar
+cadastro_fun.bt_voltar.clicked.connect(voltar)
+estoque.bt_voltar.clicked.connect(voltar)
+cadastro_prod.bt_voltar.clicked.connect(voltar)
+
+# cadastros
+cadastro_fun.bt_salvar.clicked.connect(salvar_banco1)
 
 #exibir telas
 login.show()#, cadastro.show(), estoque.show(), pag_inicial.show()

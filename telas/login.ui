@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>470</width>
-    <height>564</height>
+    <height>560</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@ background-color: rgb(255, 255, 255);</string>
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>..\images\Meteoro Calçados Logo.png</pixmap>
+     <pixmap>../images/Meteoro Calçados Logo.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -151,6 +151,41 @@ color: rgb(255, 255, 255);</string>
      <string>SENHA</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="bt_exit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>480</y>
+      <width>61</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #FFFFFFF;</string>
+    </property>
+    <property name="text">
+     <string>SAIR</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../../../964742/Downloads/image (1).png</normaloff>../../../../../964742/Downloads/image (1).png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>55</width>
+      <height>55</height>
+     </size>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -165,7 +200,7 @@ color: rgb(255, 255, 255);</string>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="C:/Users/964742/AppData/Local/Qt Designer/img.qrc"/>
+  <include location="../../../../../964742/AppData/Local/Qt Designer/img.qrc"/>
  </resources>
  <connections/>
 </ui>
