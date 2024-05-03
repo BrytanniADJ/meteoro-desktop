@@ -294,6 +294,9 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="inputMask">
+     <string>000.000.000-00</string>
+    </property>
    </widget>
    <widget class="QLineEdit" name="lineEmail">
     <property name="geometry">
@@ -314,6 +317,9 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="inputMask">
+     <string>(00)00000-0000</string>
+    </property>
    </widget>
    <widget class="QLineEdit" name="lineRua">
     <property name="geometry">
@@ -325,7 +331,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="linenNmr">
+   <widget class="QLineEdit" name="lineNmr">
     <property name="geometry">
      <rect>
       <x>760</x>
@@ -364,6 +370,9 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="inputMask">
+     <string>00000-000</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="bt_salvar">
     <property name="geometry">
@@ -394,38 +403,6 @@ background-color: rgb(36, 36, 36);</string>
      <string>CADASTRAR</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>570</y>
-      <width>71</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="mouseTracking">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(36, 36, 36);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>../../../../../963914/Downloads/image.png</normaloff>../../../../../963914/Downloads/image.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>50</width>
-      <height>50</height>
-     </size>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_17">
     <property name="geometry">
      <rect>
@@ -445,7 +422,7 @@ background-color: rgb(36, 36, 36);</string>
      <string>ESTADO:</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radio_cliente">
+   <widget class="QRadioButton" name="radioCliente">
     <property name="geometry">
      <rect>
       <x>870</x>
@@ -468,6 +445,9 @@ background-color: rgb(36, 36, 36);</string>
     </property>
    </widget>
    <widget class="QRadioButton" name="radioFun">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>870</x>
@@ -487,19 +467,6 @@ background-color: rgb(36, 36, 36);</string>
     </property>
     <property name="text">
      <string>FUNCIONÁRIO</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="box_estado">
-    <property name="geometry">
-     <rect>
-      <x>760</x>
-      <y>460</y>
-      <width>51</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
     </property>
    </widget>
    <widget class="QFrame" name="frame_2">
@@ -634,6 +601,19 @@ background-color: rgb(36, 36, 36);</string>
       </size>
      </property>
     </widget>
+   </widget>
+   <widget class="QLineEdit" name="lineEstado">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>460</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="inputMask">
+     <string>00</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

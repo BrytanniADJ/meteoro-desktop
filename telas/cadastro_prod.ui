@@ -42,7 +42,7 @@ background-color: rgb(255, 255, 255);</string>
      </font>
     </property>
     <property name="text">
-     <string>NOME DO PPRODUTO</string>
+     <string>NOME DO PRODUTO</string>
     </property>
    </widget>
    <widget class="QLabel" name="tamanho">
@@ -451,6 +451,9 @@ color: rgb(255, 255, 255);</string>
       <width>61</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
     </property>
     <item>
      <property name="text">

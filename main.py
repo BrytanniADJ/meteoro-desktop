@@ -58,23 +58,138 @@ def voltar():
     cadastro_fun.close()
     principal.show()
 
-def salvar_banco1():
-    funCod = cadastro_fun.lineCod.Text()
-    funNome = cadastro_fun.lineNome.Text()
-    funSobre = cadastro_fun.lineSobre.Text()
-    funCPF = cadastro_fun.lineCPF.Text()
-    funTell = cadastro_fun.lineTell.Text()
-    funEmail = cadastro_fun.lineEmail.Text()
-    funCep = cadastro_fun.lineCep.Text()
-    funRua = cadastro_fun.lineRua.Text()
-    funNmr = cadastro_fun.lineNmr.Text()
-    funBairro = cadastro_fun.lineBairro.Text()
-    funCidade = cadastro_fun.lineCidade.Text()
-    funEstado = cadastro_fun.boxEstado.
+def banco_cad_fun():
+    import mysql.connector
+
+    # Estabelecer a conexão com o banco de dados
+    banco = mysql.connector.connect(
+        host='localhost',
+        port='3306',
+        user='root',
+        password='123456',
+        database='meteoro_calcados'
+    )
+    cursor = banco.cursor()
+
+    # Obter os dados do formulário
+    funCod = cadastro_fun.lineCod.text()
+    funNome = cadastro_fun.lineNome.text()
+    funSobre = cadastro_fun.lineSobre.text()
+    funCPF = cadastro_fun.lineCPF.text()
+    funTell = cadastro_fun.lineTell.text()
+    funEmail = cadastro_fun.lineEmail.text()
+
+    endCep = cadastro_fun.lineRua.text()
+    endEstado = cadastro_fun.lineEstado.text()
+    endCidade = cadastro_fun.lineCidade.text()
+    endBairro = cadastro_fun.lineBairro.text()
+    endRua = cadastro_fun.lineRua.text()
+    endNumero = cadastro_fun.lineNmr.text()
+
+    # Determinar a tabela e as colunas
+    if cadastro_fun.radioCliente.isChecked():
+        tabela = 'cliente'
+    else:
+        tabela = 'funcionario'
+
+    colunas = f"nome_{tabela}, sobrenome_{tabela}, cpf_{tabela}, telefone_{tabela}, email_{tabela}"
+
+    # Query SQL para inserir dados do formulário
+    query = f"INSERT INTO {tabela} ({colunas}) VALUES (%s, %s, %s, %s, %s)"
+    values = (funNome, funSobre, funCPF, funTell, funEmail)
+    cursor.execute(query, values)
+
+    # Query SQL para inserir endereço
+    query2 = "INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero_casa) VALUES (%s, %s, %s, %s, %s, %s)"
+    values2 = (endCep, endEstado, endCidade, endBairro, endRua, endNumero)
+    cursor.execute(query2, values2)
+
+    # Commit e fechamento de conexão
+    banco.commit()
+    cursor.close()
+    banco.close()
+
+    funCod = cadastro_fun.lineCod.setText('')
+    funNome = cadastro_fun.lineNome.setText('')
+    funSobre = cadastro_fun.lineSobre.setText('')
+    funCPF = cadastro_fun.lineCPF.setText('')
+    funTell = cadastro_fun.lineTell.setText('')
+    funEmail = cadastro_fun.lineEmail.setText('')
+
+    endCep = cadastro_fun.lineRua.setText('')
+    endEstado = cadastro_fun.lineEstado.setText('')
+    endCidade = cadastro_fun.lineCidade.setText('')
+    endBairro = cadastro_fun.lineBairro.setText('')
+    endRua = cadastro_fun.lineRua.setText('')
+    endNumero = cadastro_fun.lineNmr.setText('')
 
 
+def banco_cad_fun0():
+    import mysql.connector
+
+    banco = mysql.connector.connect(
+        host = 'localhost',
+        port = '3306',
+        user = 'root',
+        password = '123456',
+        database = 'meteoro_calcados'
+    )
+
+    cursor = banco.cursor()
+
+    funCod = cadastro_fun.lineCod.text()
+    funNome = cadastro_fun.lineNome.text()
+    funSobre = cadastro_fun.lineSobre.text()
+    funCPF = cadastro_fun.lineCPF.text()
+    funTell = cadastro_fun.lineTell.text()
+    funEmail = cadastro_fun.lineEmail.text()
+
+    endCep = cadastro_fun.lineRua.text()
+    endEstado = cadastro_fun.lineEstado.text()
+    endCidade = cadastro_fun.lineCidade.text()
+    endBairro = cadastro_fun.lineBairro.text()
+    endRua = cadastro_fun.lineRua.text()
+    endNumero = cadastro_fun.lineNmr.text()
+
+    if cadastro_fun.radioCliente.isChecked():
+        opcao = 'cliente'
+        table = 'funcionario'
+    else:
+        opcao = 'funcionario'
+        table = 'cliente'
+
+    colunas = f"nome_{table}, sobrenome_{table}, cpf_{table}, telefone_{table}, email_{table}"
+
+    query = f"INSERT INTO %s ({colunas}) VALUES (%s, %s, %s, %s, %s)"
+    values = (opcao, funNome, funSobre, funCPF, funTell, funEmail)
+    cursor.execute(query, values)
+
+    query2 = "INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero_casa) VALUES (%s, %s, %s, %s, %s, %s)"
+    values2 = (endCep, endEstado, endCidade, endBairro, endRua, endNumero)
+    cursor.execute(query2, values2)
+
+    banco.commit()
+
+    funCod = cadastro_fun.lineCod.setText('')
+    funNome = cadastro_fun.lineNome.setText('')
+    funSobre = cadastro_fun.lineSobre.setText('')
+    funCPF = cadastro_fun.lineCPF.setText('')
+    funTell = cadastro_fun.lineTell.setText('')
+    funEmail = cadastro_fun.lineEmail.setText('')
+
+    endCep = cadastro_fun.lineRua.setText('')
+    endEstado = cadastro_fun.lineEstado.setText('')
+    endCidade = cadastro_fun.lineCidade.setText('')
+    endBairro = cadastro_fun.lineBairro.setText('')
+    endRua = cadastro_fun.lineRua.setText('')
+    endNumero = cadastro_fun.lineNmr.setText('')
+
+    banco.commit()
+    cursor.close()
+    banco.close()
 # definição de funções (campos)
 def campos_login():
+    chamar_principal()
     # criar um cursor
     cursor = banco.cursor()
 
@@ -85,12 +200,14 @@ def campos_login():
     cursor.execute(query, parametros)
 
     if cursor.fetchone() is not None:
-        login.close()
         chamar_principal()
     else:
         erro_login = QtWidgets.QErrorMessage()
         erro_login.showMessage('Usuário e/ou senha inválidos.')
         erro_login.exec_()
+
+    cursor.close()
+    banco.close()
 
 # Def erros
 
@@ -115,7 +232,7 @@ estoque.bt_voltar.clicked.connect(voltar)
 cadastro_prod.bt_voltar.clicked.connect(voltar)
 
 # cadastros
-cadastro_fun.bt_salvar.clicked.connect(salvar_banco1)
+cadastro_fun.bt_salvar.clicked.connect(banco_cad_fun)
 
 #exibir telas
 login.show()#, cadastro.show(), estoque.show(), pag_inicial.show()
