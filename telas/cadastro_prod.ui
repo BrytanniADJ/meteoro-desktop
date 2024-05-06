@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1120</width>
-    <height>680</height>
+    <height>0</height>
    </rect>
   </property>
   <property name="font">
@@ -209,7 +209,7 @@ background-color: rgb(255, 255, 255);</string>
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="insert_cod">
+   <widget class="QLineEdit" name="prodCod">
     <property name="geometry">
      <rect>
       <x>100</x>
@@ -534,7 +534,7 @@ color: rgb(255, 255, 255);</string>
    <zorder>prodMarca</zorder>
    <zorder>prodQuant</zorder>
    <zorder>prodCor</zorder>
-   <zorder>insert_cod</zorder>
+   <zorder>prodCod</zorder>
    <zorder>preco_venda</zorder>
    <zorder>preco_custo</zorder>
    <zorder>prodPrecoCusto</zorder>

@@ -186,8 +186,79 @@ def campos_login():
     cursor.close()
     banco.close()
 
+
+# pesquisas
+def botao_pesquisa_cod():
+    global coluna
+    coluna = 'cod_produto'
+    banco_pesquisa_prod()
+
+def botao_pesquisa_nome():
+    global coluna
+    coluna = 'nome_produto'
+    banco_pesquisa_prod()
+
+def botao_pesquisa_tamanho():
+    global coluna
+    coluna = 'tamanho_produto'
+    banco_pesquisa_prod()
+
+def botao_pesquisa_modelo():
+    global coluna
+    coluna = 'modelo_produto'
+    banco_pesquisa_prod()
+
+def botao_pesquisa_cor():
+    global coluna
+    coluna = 'cor_produto'
+    banco_pesquisa_prod()
+
+def botao_pesquisa_marca():
+    global coluna
+    coluna = 'marca_produto'
+    banco_pesquisa_prod()
+
+def botao_pesquisa_qtd():
+    global coluna
+    coluna = 'qtd_produto'
+    banco_pesquisa_prod()
+
 def banco_pesquisa_prod():
-    estoque.query.setText("texto")
+    import mysql.connector
+    # Estabelecer a conexão com o banco de dados
+    banco = mysql.connector.connect(
+        host='localhost',
+        port='3306',
+        user='root',
+        password='123456',
+        database='meteoro_calcados'
+    )
+    cursor = banco.cursor()
+
+    global coluna
+    database = ""
+    cont = 1
+
+    cursor.execute("SELECT MAX(cod_produto) FROM produtos")
+    maior_cod = cursor.fetchone()[0]
+
+    for cont in range(maior_cod):
+        query = f"SELECT cod_produto, nome_produto, tamanho_produto, modelo_produto, cor_produto, marca_produto, qtd_produto FROM produtos WHERE {coluna}"
+        cursor.execute(query) # 
+        linha = cursor.fetchone()
+
+        if linha:
+            linha_formatada = "\t".join(map(str, linha))
+            database += f"\n\t{linha_formatada}"
+
+        cont = cont + 1
+
+    estoque.query.setText(database)
+
+    cursor.close()
+    banco.close()
+
+
 # Def erros
 
 # definição das viriáveis
@@ -215,7 +286,7 @@ cadastro_fun.bt_salvar.clicked.connect(banco_cad_fun)
 cadastro_prod.bt_salvar.clicked.connect(banco_cad_prod)
 
 # select table
-estoque.bt_lupa.clicked.connect(banco_pesquisa_prod)
+estoque.bt_cod.clicked.connect(banco_pesquisa_prod)
 
 #exibir telas
 login.show()#, cadastro.show(), estoque.show(), pag_inicial.show()
