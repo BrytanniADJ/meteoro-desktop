@@ -159,7 +159,7 @@ background-color: rgb(255, 255, 255);</string>
      <string>QUANTIDADE RECEBIDA</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="insert_nome_produto">
+   <widget class="QLineEdit" name="prodNome">
     <property name="geometry">
      <rect>
       <x>230</x>
@@ -169,7 +169,7 @@ background-color: rgb(255, 255, 255);</string>
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="insert_modelo">
+   <widget class="QLineEdit" name="prodModelo">
     <property name="geometry">
      <rect>
       <x>100</x>
@@ -179,7 +179,7 @@ background-color: rgb(255, 255, 255);</string>
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="insert_marca">
+   <widget class="QLineEdit" name="prodMarca">
     <property name="geometry">
      <rect>
       <x>680</x>
@@ -189,7 +189,7 @@ background-color: rgb(255, 255, 255);</string>
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="insert_qntd_recebida">
+   <widget class="QLineEdit" name="prodQuant">
     <property name="geometry">
      <rect>
       <x>100</x>
@@ -199,7 +199,7 @@ background-color: rgb(255, 255, 255);</string>
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="insert_cor">
+   <widget class="QLineEdit" name="prodCor">
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -257,7 +257,7 @@ background-color: rgb(255, 255, 255);</string>
      <string>PREÇO CUSTO</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="insert_preco_custo">
+   <widget class="QLineEdit" name="prodPrecoCusto">
     <property name="geometry">
      <rect>
       <x>680</x>
@@ -267,7 +267,7 @@ background-color: rgb(255, 255, 255);</string>
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="insert_preco_venda">
+   <widget class="QLineEdit" name="prodPrecoVenda">
     <property name="geometry">
      <rect>
       <x>860</x>
@@ -391,7 +391,7 @@ background-color: rgb(255, 255, 255);</string>
      <enum>QFrame::Raised</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="bt_cadastrar">
+   <widget class="QPushButton" name="bt_salvar">
     <property name="geometry">
      <rect>
       <x>100</x>
@@ -443,7 +443,7 @@ color: rgb(255, 255, 255);</string>
      <string>VER ESTOQUE</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="boxTamanho">
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -529,20 +529,20 @@ color: rgb(255, 255, 255);</string>
    <zorder>marca</zorder>
    <zorder>codigo</zorder>
    <zorder>qntdd_recebida</zorder>
-   <zorder>insert_nome_produto</zorder>
-   <zorder>insert_modelo</zorder>
-   <zorder>insert_marca</zorder>
-   <zorder>insert_qntd_recebida</zorder>
-   <zorder>insert_cor</zorder>
+   <zorder>prodNome</zorder>
+   <zorder>prodModelo</zorder>
+   <zorder>prodMarca</zorder>
+   <zorder>prodQuant</zorder>
+   <zorder>prodCor</zorder>
    <zorder>insert_cod</zorder>
    <zorder>preco_venda</zorder>
    <zorder>preco_custo</zorder>
-   <zorder>insert_preco_custo</zorder>
-   <zorder>insert_preco_venda</zorder>
+   <zorder>prodPrecoCusto</zorder>
+   <zorder>prodPrecoVenda</zorder>
    <zorder>frame_2</zorder>
-   <zorder>bt_cadastrar</zorder>
+   <zorder>bt_salvar</zorder>
    <zorder>bt_estoque</zorder>
-   <zorder>comboBox</zorder>
+   <zorder>boxTamanho</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

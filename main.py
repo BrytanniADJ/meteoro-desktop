@@ -28,7 +28,7 @@ def chamar_principal():
 def inicial_estoque(): # cadastros
     principal.close()
     estoque.show()
-    
+
 def cadastro_prod_inicial(): # cadastro de produtos
     principal.close()
     cadastro_prod.show()
@@ -72,7 +72,7 @@ def banco_cad_fun():
     cursor = banco.cursor()
 
     # Obter os dados do formulário
-    funCod = cadastro_fun.lineCod.text()
+    funCod = cadastro_fun.lineCod.text() # não irá se usar na query
     funNome = cadastro_fun.lineNome.text()
     funSobre = cadastro_fun.lineSobre.text()
     funCPF = cadastro_fun.lineCPF.text()
@@ -109,7 +109,7 @@ def banco_cad_fun():
     cursor.close()
     banco.close()
 
-    funCod = cadastro_fun.lineCod.setText('')
+    funCod = cadastro_fun.lineCod.setText('') # apagando valores da table
     funNome = cadastro_fun.lineNome.setText('')
     funSobre = cadastro_fun.lineSobre.setText('')
     funCPF = cadastro_fun.lineCPF.setText('')
@@ -123,70 +123,47 @@ def banco_cad_fun():
     endRua = cadastro_fun.lineRua.setText('')
     endNumero = cadastro_fun.lineNmr.setText('')
 
-
-def banco_cad_fun0():
+def banco_cad_prod():
     import mysql.connector
 
+    # Estabelecer a conexão com o banco de dados
     banco = mysql.connector.connect(
-        host = 'localhost',
-        port = '3306',
-        user = 'root',
-        password = '123456',
-        database = 'meteoro_calcados'
+        host='localhost',
+        port='3306',
+        user='root',
+        password='123456',
+        database='meteoro_calcados'
     )
-
     cursor = banco.cursor()
 
-    funCod = cadastro_fun.lineCod.text()
-    funNome = cadastro_fun.lineNome.text()
-    funSobre = cadastro_fun.lineSobre.text()
-    funCPF = cadastro_fun.lineCPF.text()
-    funTell = cadastro_fun.lineTell.text()
-    funEmail = cadastro_fun.lineEmail.text()
+    prodCod = cadastro_fun.prodCod.text()
+    prodNome = cadastro_prod.prodNome.text()
+    boxTamanho = cadastro_prod.boxTamanho.currentIndex()
+    prodModelo = cadastro_prod.prodModelo.text()
+    prodCor = cadastro_prod.prodCor.text()
+    prodMarca = cadastro_prod.prodMarca.text()
+    prodPrecoCusto = cadastro_prod.prodPrecoCusto.text()
+    prodPrecoVenda = cadastro_prod.prodPrecoVenda.text()
+    prodQuant = cadastro_prod.prodQuant.text()
+    
 
-    endCep = cadastro_fun.lineRua.text()
-    endEstado = cadastro_fun.lineEstado.text()
-    endCidade = cadastro_fun.lineCidade.text()
-    endBairro = cadastro_fun.lineBairro.text()
-    endRua = cadastro_fun.lineRua.text()
-    endNumero = cadastro_fun.lineNmr.text()
+    query = "INSERT INTO produtos(nome_produto, tamanho_produto, modelo_produto, cor_produto, marca_produto, preco_custo, preco_venda, qtd_produto) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    values = (prodNome, boxTamanho, prodModelo, prodCor, prodMarca, prodPrecoCusto, prodPrecoVenda, prodQuant)
 
-    if cadastro_fun.radioCliente.isChecked():
-        opcao = 'cliente'
-        table = 'funcionario'
-    else:
-        opcao = 'funcionario'
-        table = 'cliente'
-
-    colunas = f"nome_{table}, sobrenome_{table}, cpf_{table}, telefone_{table}, email_{table}"
-
-    query = f"INSERT INTO %s ({colunas}) VALUES (%s, %s, %s, %s, %s)"
-    values = (opcao, funNome, funSobre, funCPF, funTell, funEmail)
     cursor.execute(query, values)
-
-    query2 = "INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero_casa) VALUES (%s, %s, %s, %s, %s, %s)"
-    values2 = (endCep, endEstado, endCidade, endBairro, endRua, endNumero)
-    cursor.execute(query2, values2)
-
-    banco.commit()
-
-    funCod = cadastro_fun.lineCod.setText('')
-    funNome = cadastro_fun.lineNome.setText('')
-    funSobre = cadastro_fun.lineSobre.setText('')
-    funCPF = cadastro_fun.lineCPF.setText('')
-    funTell = cadastro_fun.lineTell.setText('')
-    funEmail = cadastro_fun.lineEmail.setText('')
-
-    endCep = cadastro_fun.lineRua.setText('')
-    endEstado = cadastro_fun.lineEstado.setText('')
-    endCidade = cadastro_fun.lineCidade.setText('')
-    endBairro = cadastro_fun.lineBairro.setText('')
-    endRua = cadastro_fun.lineRua.setText('')
-    endNumero = cadastro_fun.lineNmr.setText('')
 
     banco.commit()
     cursor.close()
     banco.close()
+
+    prodCod = cadastro_fun.prodCod.setText()
+    prodNome = cadastro_prod.prodNome.setText('')
+    prodModelo = cadastro_prod.prodModelo.setText('')
+    prodCor = cadastro_prod.prodCor.setText('')
+    prodMarca = cadastro_prod.prodMarca.setText('')
+    prodPrecoCusto = cadastro_prod.prodPrecoCusto.setText('')
+    prodPrecoVenda = cadastro_prod.prodPrecoVenda.setText('')
+    prodQuant = cadastro_prod.prodQuant.setText('')
 # definição de funções (campos)
 def campos_login():
     chamar_principal()
@@ -209,6 +186,8 @@ def campos_login():
     cursor.close()
     banco.close()
 
+def banco_pesquisa_prod():
+    estoque.query.setText("texto")
 # Def erros
 
 # definição das viriáveis
@@ -233,6 +212,10 @@ cadastro_prod.bt_voltar.clicked.connect(voltar)
 
 # cadastros
 cadastro_fun.bt_salvar.clicked.connect(banco_cad_fun)
+cadastro_prod.bt_salvar.clicked.connect(banco_cad_prod)
+
+# select table
+estoque.bt_lupa.clicked.connect(banco_pesquisa_prod)
 
 #exibir telas
 login.show()#, cadastro.show(), estoque.show(), pag_inicial.show()
