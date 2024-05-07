@@ -10,7 +10,6 @@ import mysql.connector
 from tkinter import *
 
 app = QtWidgets.QApplication([])
-
 # conexão com banco de dados
 banco = mysql.connector.connect(
     host = 'localhost',
@@ -136,7 +135,7 @@ def banco_cad_prod():
     )
     cursor = banco.cursor()
 
-    prodCod = cadastro_fun.prodCod.text()
+    prodCod = cadastro_prod.prodCod.text()
     prodNome = cadastro_prod.prodNome.text()
     boxTamanho = cadastro_prod.boxTamanho.currentIndex()
     prodModelo = cadastro_prod.prodModelo.text()
@@ -156,7 +155,7 @@ def banco_cad_prod():
     cursor.close()
     banco.close()
 
-    prodCod = cadastro_fun.prodCod.setText()
+    prodCod = cadastro_prod.prodCod.setText('')
     prodNome = cadastro_prod.prodNome.setText('')
     prodModelo = cadastro_prod.prodModelo.setText('')
     prodCor = cadastro_prod.prodCor.setText('')
@@ -223,8 +222,11 @@ def botao_pesquisa_qtd():
     coluna = 'qtd_produto'
     banco_pesquisa_prod()
 
-def banco_pesquisa_prod():
+def pesquisa_geral_prod():
+    global columns
+    columns = 'cod_produto, nome_produto, tamanho_produto, modelo_produto, cor_produto, marca_produto, qtd_produto'
     import mysql.connector
+
     # Estabelecer a conexão com o banco de dados
     banco = mysql.connector.connect(
         host='localhost',
@@ -234,26 +236,73 @@ def banco_pesquisa_prod():
         database='meteoro_calcados'
     )
     cursor = banco.cursor()
+    database = ''
 
-    global coluna
-    database = ""
-    cont = 1
-
-    cursor.execute("SELECT MAX(cod_produto) FROM produtos")
+    # Executar a consulta para contar o número total de produtos
+    cursor.execute("SELECT COUNT(cod_produto) FROM produtos")
     maior_cod = cursor.fetchone()[0]
 
-    for cont in range(maior_cod):
-        query = f"SELECT cod_produto, nome_produto, tamanho_produto, modelo_produto, cor_produto, marca_produto, qtd_produto FROM produtos WHERE {coluna}"
-        cursor.execute(query) # 
+    # Loop para percorrer os resultados
+    for cont in range(1, maior_cod + 1):  # Começando em 1, pois a indexação em Python começa em 0
+        # Executar a consulta para obter os detalhes do produto
+        cursor.execute(f"SELECT {columns} FROM produtos WHERE cod_produto = %s", (cont,))
         linha = cursor.fetchone()
 
         if linha:
-            linha_formatada = "\t".join(map(str, linha))
+            linha_formatada = "\t | ".join(map(str, linha))
             database += f"\n\t{linha_formatada}"
 
-        cont = cont + 1
-
+    # Atualizar o texto do widget com os resultados
     estoque.query.setText(database)
+
+    # Fechar o cursor e a conexão com o banco de dados
+    cursor.close()
+    banco.close()
+
+def banco_pesquisa_prod():
+    global coluna
+    import mysql.connector
+
+    # Estabelecer a conexão com o banco de dados
+    banco = mysql.connector.connect(
+        host='localhost',
+        port='3306',
+        user='root',
+        password='123456',
+        database='meteoro_calcados'
+    )
+    cursor = banco.cursor()
+    cont = 1
+    database = ''
+    pesquisa = estoque.linePesquisa.text()
+    columns = 'cod_produto, nome_produto, tamanho_produto, modelo_produto, cor_produto, marca_produto, qtd_produto'
+
+    if pesquisa == '': # pegando quantas linhas de acordo com o campo de texto
+        # Executar a consulta
+        cursor.execute(f"SELECT * FROM produtos ORDER BY {coluna}")
+        # Recuperar todas as linhas resultantes da consulta
+        linhas = cursor.fetchall()
+        linha = 1
+        # Formatar as linhas para exibição
+        for linha in linhas:
+            linha_formatada = "\t | ".join(map(str, linha))
+            database += f"\n\t{linha_formatada}"
+
+        # Atualizar o texto do widget com os resultados
+        estoque.query.setText(database)
+    else:
+        cursor.execute(f"SELECT {columns} FROM produtos WHERE {coluna} = %s", (pesquisa,))
+        maior_cod = cursor.fetchone()[0]
+
+        for cont in range(maior_cod):
+            cursor.execute(f"SELECT {columns} FROM produtos WHERE {coluna} = %s", (pesquisa,))
+            linha = cursor.fetchone()
+
+            if linha:
+                linha_formatada = "\t | ".join(map(str, linha))
+                database += f"\n\t{linha_formatada}"
+
+        estoque.query.setText(database)
 
     cursor.close()
     banco.close()
@@ -267,7 +316,6 @@ login = uic.loadUi('telas\login.ui')
 estoque = uic.loadUi('telas\estoque.ui')
 cadastro_prod = uic.loadUi('telas\cadastro_prod.ui')
 cadastro_fun = uic.loadUi('telas\cadastro_fun.ui')
-
 
 # funções 'botões'
 login.bt_login.clicked.connect(campos_login) # botão 'login' --> tela 'principal'
@@ -286,7 +334,14 @@ cadastro_fun.bt_salvar.clicked.connect(banco_cad_fun)
 cadastro_prod.bt_salvar.clicked.connect(banco_cad_prod)
 
 # select table
-estoque.bt_cod.clicked.connect(banco_pesquisa_prod)
+estoque.bt_cod.clicked.connect(botao_pesquisa_cod)
+estoque.bt_nome.clicked.connect(botao_pesquisa_nome)
+estoque.bt_tamanho.clicked.connect(botao_pesquisa_tamanho)
+estoque.bt_modelo.clicked.connect(botao_pesquisa_modelo)
+estoque.bt_cor.clicked.connect(botao_pesquisa_cor)
+estoque.bt_marca.clicked.connect(botao_pesquisa_marca)
+estoque.bt_qtd.clicked.connect(botao_pesquisa_qtd)
+estoque.bt_geral.clicked.connect(pesquisa_geral_prod)
 
 #exibir telas
 login.show()#, cadastro.show(), estoque.show(), pag_inicial.show()
