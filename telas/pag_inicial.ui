@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1120</width>
-    <height>680</height>
+    <width>605</width>
+    <height>515</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,48 +18,13 @@
 alternate-background-color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="bt_cad_pro">
+   <widget class="QPushButton" name="bt_cad">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>380</x>
       <y>440</y>
-      <width>271</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Eras Demi ITC</family>
-      <pointsize>16</pointsize>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="mouseTracking">
-     <bool>false</bool>
-    </property>
-    <property name="tabletTracking">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(36, 36, 36);
-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>CADASTRO DE PRODUTOS</string>
-    </property>
-    <property name="autoDefault">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="bt_cad_fun">
-    <property name="geometry">
-     <rect>
-      <x>790</x>
-      <y>440</y>
-      <width>271</width>
-      <height>61</height>
+      <width>231</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -91,10 +56,10 @@ color: rgb(255, 255, 255);</string>
    <widget class="QPushButton" name="bt_estoque">
     <property name="geometry">
      <rect>
-      <x>420</x>
+      <x>0</x>
       <y>440</y>
-      <width>271</width>
-      <height>61</height>
+      <width>221</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -123,44 +88,6 @@ color: rgb(255, 255, 255);</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>320</y>
-      <width>121</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../../../../../964742/Pictures/4745448.png</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>490</x>
-      <y>320</y>
-      <width>121</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../../../../../964742/Pictures/3176088.png</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
@@ -183,8 +110,8 @@ color: rgb(255, 255, 255);</string>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>-20</y>
+      <x>90</x>
+      <y>-100</y>
       <width>421</width>
       <height>411</height>
      </rect>
@@ -199,21 +126,67 @@ color: rgb(255, 255, 255);</string>
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>270</y>
+      <width>601</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Bem vindo(a)</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="text_usu">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>300</y>
+      <width>601</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
    <widget class="QPushButton" name="bt_disconnect">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>20</y>
-      <width>101</width>
-      <height>41</height>
+      <x>220</x>
+      <y>440</y>
+      <width>161</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Eras Demi ITC</family>
-      <pointsize>8</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
+      <pointsize>16</pointsize>
      </font>
     </property>
     <property name="cursor">
@@ -226,8 +199,8 @@ color: rgb(255, 255, 255);</string>
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: #000000;
-background-color: #ffffff</string>
+     <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string>DISCONNECT</string>
@@ -236,13 +209,20 @@ background-color: #ffffff</string>
      <bool>false</bool>
     </property>
    </widget>
+   <zorder>label_5</zorder>
+   <zorder>bt_cad</zorder>
+   <zorder>bt_estoque</zorder>
+   <zorder>label_4</zorder>
+   <zorder>label</zorder>
+   <zorder>text_usu</zorder>
+   <zorder>bt_disconnect</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1120</width>
+     <width>605</width>
      <height>21</height>
     </rect>
    </property>

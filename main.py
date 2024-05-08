@@ -21,16 +21,18 @@ banco = mysql.connector.connect(
 
 # definição de funções (telas) login.ui
 def chamar_principal():
+    global usuario
     login.close()
     principal.show()
+    principal.text_usu.setText(f"{usuario}")
 # pag-inicial.ui
 def inicial_estoque(): # cadastros
     principal.close()
     estoque.show()
 
-def cadastro_prod_inicial(): # cadastro de produtos
+def cadastros_inicial(): # cadastro de produtos
     principal.close()
-    cadastro_prod.show()
+    cadastros.show()
 
 def disconect():
     principal.close()
@@ -39,22 +41,20 @@ def disconect():
 def exit():
     login.close()
 
-def cadastro_fun_inicial():
+def cadastros_inicial():
     principal.close()
-    cadastro_fun.show()
+    cadastros.show()
 
 # exit das páginas
 def exit_geral():
     principal.close()
     estoque.close()
-    cadastro_prod.close()
-    # consulta.close()
+    cadastros.close()
     login.show
 
 def voltar():
     estoque.close()
-    cadastro_prod.close()
-    cadastro_fun.close()
+    cadastros.close()
     principal.show()
 
 def banco_cad_fun():
@@ -71,22 +71,22 @@ def banco_cad_fun():
     cursor = banco.cursor()
 
     # Obter os dados do formulário
-    funCod = cadastro_fun.lineCod.text() # não irá se usar na query
-    funNome = cadastro_fun.lineNome.text()
-    funSobre = cadastro_fun.lineSobre.text()
-    funCPF = cadastro_fun.lineCPF.text()
-    funTell = cadastro_fun.lineTell.text()
-    funEmail = cadastro_fun.lineEmail.text()
+    funCod = cadastros.funCod.text() # não irá se usar na query
+    funNome = cadastros.funNome.text()
+    funSobre = cadastros.funSobre.text()
+    funCPF = cadastros.funCPF.text()
+    funTell = cadastros.funTell.text()
+    funEmail = cadastros.funEmail.text()
 
-    endCep = cadastro_fun.lineRua.text()
-    endEstado = cadastro_fun.lineEstado.text()
-    endCidade = cadastro_fun.lineCidade.text()
-    endBairro = cadastro_fun.lineBairro.text()
-    endRua = cadastro_fun.lineRua.text()
-    endNumero = cadastro_fun.lineNmr.text()
+    endCep = cadastros.funRua.text()
+    endEstado = cadastros.funEstado.text()
+    endCidade = cadastros.funCidade.text()
+    endBairro = cadastros.funBairro.text()
+    endRua = cadastros.funRua.text()
+    endNumero = cadastros.funNmr.text()
 
     # Determinar a tabela e as colunas
-    if cadastro_fun.radioCliente.isChecked():
+    if cadastros.radioCliente.isChecked():
         tabela = 'cliente'
     else:
         tabela = 'funcionario'
@@ -108,19 +108,19 @@ def banco_cad_fun():
     cursor.close()
     banco.close()
 
-    funCod = cadastro_fun.lineCod.setText('') # apagando valores da table
-    funNome = cadastro_fun.lineNome.setText('')
-    funSobre = cadastro_fun.lineSobre.setText('')
-    funCPF = cadastro_fun.lineCPF.setText('')
-    funTell = cadastro_fun.lineTell.setText('')
-    funEmail = cadastro_fun.lineEmail.setText('')
+    funCod = cadastros.funCod.setText('') # apagando valores da table
+    funNome = cadastros.funNome.setText('')
+    funSobre = cadastros.funSobre.setText('')
+    funCPF = cadastros.funCPF.setText('')
+    funTell = cadastros.funTell.setText('')
+    funEmail = cadastros.funEmail.setText('')
 
-    endCep = cadastro_fun.lineRua.setText('')
-    endEstado = cadastro_fun.lineEstado.setText('')
-    endCidade = cadastro_fun.lineCidade.setText('')
-    endBairro = cadastro_fun.lineBairro.setText('')
-    endRua = cadastro_fun.lineRua.setText('')
-    endNumero = cadastro_fun.lineNmr.setText('')
+    endCep = cadastros.funRua.setText('')
+    endEstado = cadastros.funEstado.setText('')
+    endCidade = cadastros.funCidade.setText('')
+    endBairro = cadastros.funBairro.setText('')
+    endRua = cadastros.funRua.setText('')
+    endNumero = cadastros.funNmr.setText('')
 
 def banco_cad_prod():
     import mysql.connector
@@ -135,15 +135,15 @@ def banco_cad_prod():
     )
     cursor = banco.cursor()
 
-    prodCod = cadastro_prod.prodCod.text()
-    prodNome = cadastro_prod.prodNome.text()
-    boxTamanho = cadastro_prod.boxTamanho.currentIndex()
-    prodModelo = cadastro_prod.prodModelo.text()
-    prodCor = cadastro_prod.prodCor.text()
-    prodMarca = cadastro_prod.prodMarca.text()
-    prodPrecoCusto = cadastro_prod.prodPrecoCusto.text()
-    prodPrecoVenda = cadastro_prod.prodPrecoVenda.text()
-    prodQuant = cadastro_prod.prodQuant.text()
+    prodCod = cadastros.prodCod.text()
+    prodNome = cadastros.prodNome.text()
+    boxTamanho = cadastros.boxTamanho.currentIndex()
+    prodModelo = cadastros.prodModelo.text()
+    prodCor = cadastros.prodCor.text()
+    prodMarca = cadastros.prodMarca.text()
+    prodPrecoCusto = cadastros.prodPrecoCusto.text()
+    prodPrecoVenda = cadastros.prodPrecoVenda.text()
+    prodQuant = cadastros.prodQuant.text()
     
 
     query = "INSERT INTO produtos(nome_produto, tamanho_produto, modelo_produto, cor_produto, marca_produto, preco_custo, preco_venda, qtd_produto) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
@@ -155,16 +155,18 @@ def banco_cad_prod():
     cursor.close()
     banco.close()
 
-    prodCod = cadastro_prod.prodCod.setText('')
-    prodNome = cadastro_prod.prodNome.setText('')
-    prodModelo = cadastro_prod.prodModelo.setText('')
-    prodCor = cadastro_prod.prodCor.setText('')
-    prodMarca = cadastro_prod.prodMarca.setText('')
-    prodPrecoCusto = cadastro_prod.prodPrecoCusto.setText('')
-    prodPrecoVenda = cadastro_prod.prodPrecoVenda.setText('')
-    prodQuant = cadastro_prod.prodQuant.setText('')
+    prodCod = cadastros.prodCod.setText('')
+    prodNome = cadastros.prodNome.setText('')
+    prodModelo = cadastros.prodModelo.setText('')
+    prodCor = cadastros.prodCor.setText('')
+    prodMarca = cadastros.prodMarca.setText('')
+    prodPrecoCusto = cadastros.prodPrecoCusto.setText('')
+    prodPrecoVenda = cadastros.prodPrecoVenda.setText('')
+    prodQuant = cadastros.prodQuant.setText('')
 # definição de funções (campos)
 def campos_login():
+    global usuario
+    usuario = "Bianca" # substituir quando finalizar o programa
     chamar_principal()
     # criar um cursor
     cursor = banco.cursor()
@@ -172,6 +174,7 @@ def campos_login():
     # consulta (query) para verificar login
     query = "SELECT * FROM funcionario WHERE CONCAT(nome_funcionario, ' ', sobrenome_funcionario) = %s AND REGEXP_REPLACE(cpf_funcionario, '[^0-9]', '') = %s"
     parametros = (login.inserir_usuario.text(), login.inserir_senha.text()) # parametro de comparação
+    # usuario = f"{login.inserir_usuario.text()},' ',{login.inserir_senha.text()}"
     # executar consultaadfd
     cursor.execute(query, parametros)
 
@@ -222,48 +225,11 @@ def botao_pesquisa_qtd():
     coluna = 'qtd_produto'
     banco_pesquisa_prod()
 
-def pesquisa_geral_prod():
-    global columns
-    columns = 'cod_produto, nome_produto, tamanho_produto, modelo_produto, cor_produto, marca_produto, qtd_produto'
-    import mysql.connector
-
-    # Estabelecer a conexão com o banco de dados
-    banco = mysql.connector.connect(
-        host='localhost',
-        port='3306',
-        user='root',
-        password='123456',
-        database='meteoro_calcados'
-    )
-    cursor = banco.cursor()
-    database = ''
-
-    # Executar a consulta para contar o número total de produtos
-    cursor.execute("SELECT COUNT(cod_produto) FROM produtos")
-    maior_cod = cursor.fetchone()[0]
-
-    # Loop para percorrer os resultados
-    for cont in range(1, maior_cod + 1):  # Começando em 1, pois a indexação em Python começa em 0
-        # Executar a consulta para obter os detalhes do produto
-        cursor.execute(f"SELECT {columns} FROM produtos WHERE cod_produto = %s", (cont,))
-        linha = cursor.fetchone()
-
-        if linha:
-            linha_formatada = "\t | ".join(map(str, linha))
-            database += f"\n\t{linha_formatada}"
-
-    # Atualizar o texto do widget com os resultados
-    estoque.query.setText(database)
-
-    # Fechar o cursor e a conexão com o banco de dados
-    cursor.close()
-    banco.close()
-
 def banco_pesquisa_prod():
     global coluna
     import mysql.connector
+    from PyQt5 import QtWidgets
 
-    # Estabelecer a conexão com o banco de dados
     banco = mysql.connector.connect(
         host='localhost',
         port='3306',
@@ -271,67 +237,77 @@ def banco_pesquisa_prod():
         password='123456',
         database='meteoro_calcados'
     )
+
     cursor = banco.cursor()
-    cont = 1
-    database = ''
-    pesquisa = estoque.linePesquisa.text()
+    campo = estoque.linePesquisa.text()
     columns = 'cod_produto, nome_produto, tamanho_produto, modelo_produto, cor_produto, marca_produto, qtd_produto'
 
-    if pesquisa == '': # pegando quantas linhas de acordo com o campo de texto
-        # Executar a consulta
-        cursor.execute(f"SELECT * FROM produtos ORDER BY {coluna}")
-        # Recuperar todas as linhas resultantes da consulta
-        linhas = cursor.fetchall()
-        linha = 1
-        # Formatar as linhas para exibição
-        for linha in linhas:
-            linha_formatada = "\t | ".join(map(str, linha))
-            database += f"\n\t{linha_formatada}"
-
-        # Atualizar o texto do widget com os resultados
-        estoque.query.setText(database)
+    if campo == '': 
+        query = f"SELECT {columns} FROM produtos ORDER BY {coluna}"
     else:
-        cursor.execute(f"SELECT {columns} FROM produtos WHERE {coluna} = %s", (pesquisa,))
-        maior_cod = cursor.fetchone()[0]
+        query = f"SELECT {columns} FROM produtos WHERE {coluna} = '{campo}'"
 
-        for cont in range(maior_cod):
-            cursor.execute(f"SELECT {columns} FROM produtos WHERE {coluna} = %s", (pesquisa,))
-            linha = cursor.fetchone()
+    try: # usar o try
+        cursor.execute(query)
+        selecao = cursor.fetchall()
 
-            if linha:
-                linha_formatada = "\t | ".join(map(str, linha))
-                database += f"\n\t{linha_formatada}"
+        cursor.close()
 
-        estoque.query.setText(database)
+        estoque.dataTree.setRowCount(len(selecao))
+        estoque.dataTree.setColumnCount(7)
+
+        for i in range(len(selecao)):
+            for j in range(7):
+                estoque.dataTree.setItem(i, j, QtWidgets.QTableWidgetItem(str(selecao[i][j])))
+
+def pesquisa_geral_prod():
+    import mysql.connector
+    from PyQt5 import QtWidgets
+
+    banco = mysql.connector.connect(
+        host='localhost',
+        port='3306',
+        user='root',
+        password='123456',
+        database='meteoro_calcados'
+    )
+
+    cursor = banco.cursor()
+    campo = estoque.linePesquisa.text()
+    columns = 'cod_produto, nome_produto, tamanho_produto, modelo_produto, cor_produto, marca_produto, qtd_produto'
+    query = f"SELECT {columns} FROM produtos"
+    cursor.execute(query)
+    selecao = cursor.fetchall()
 
     cursor.close()
-    banco.close()
 
+    estoque.dataTree.setRowCount(len(selecao))
+    estoque.dataTree.setColumnCount(7)
 
+    for i in range(len(selecao)):
+        for j in range(7):
+            estoque.dataTree.setItem(i, j, QtWidgets.QTableWidgetItem(str(selecao[i][j])))
 # Def erros
 
 # definição das viriáveis
 principal = uic.loadUi('telas\pag_inicial.ui')
 login = uic.loadUi('telas\login.ui')
 estoque = uic.loadUi('telas\estoque.ui')
-cadastro_prod = uic.loadUi('telas\cadastro_prod.ui')
-cadastro_fun = uic.loadUi('telas\cadastro_fun.ui')
+cadastros = uic.loadUi('telas\cadastro.ui')
 
 # funções 'botões'
 login.bt_login.clicked.connect(campos_login) # botão 'login' --> tela 'principal'
 login.bt_exit.clicked.connect(exit)
-principal.bt_cad_pro.clicked.connect(cadastro_prod_inicial) # botão 'cadastro de produtos' --> tela 'cadastro'
+principal.bt_cad.clicked.connect(cadastros_inicial) # botão 'cadastro de produtos' --> tela 'cadastro'
 principal.bt_estoque.clicked.connect(inicial_estoque) # botão 'estoque' --> tela 'estoque']
-principal.bt_cad_fun.clicked.connect(cadastro_fun_inicial)
 principal.bt_disconnect.clicked.connect(disconect)
 # botão voltar
-cadastro_fun.bt_voltar.clicked.connect(voltar)
+cadastros.bt_voltar.clicked.connect(voltar)
 estoque.bt_voltar.clicked.connect(voltar)
-cadastro_prod.bt_voltar.clicked.connect(voltar)
 
 # cadastros
-cadastro_fun.bt_salvar.clicked.connect(banco_cad_fun)
-cadastro_prod.bt_salvar.clicked.connect(banco_cad_prod)
+cadastros.bt_salvarFun.clicked.connect(banco_cad_fun)
+cadastros.bt_salvarProd.clicked.connect(banco_cad_prod)
 
 # select table
 estoque.bt_cod.clicked.connect(botao_pesquisa_cod)
@@ -344,7 +320,7 @@ estoque.bt_qtd.clicked.connect(botao_pesquisa_qtd)
 estoque.bt_geral.clicked.connect(pesquisa_geral_prod)
 
 #exibir telas
-login.show()#, cadastro.show(), estoque.show(), pag_inicial.show()
+login.show()
 
 #rodar o programa
 app.exec_()
