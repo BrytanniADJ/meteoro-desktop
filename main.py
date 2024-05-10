@@ -8,6 +8,9 @@ import mysql.connector
 from mysql.connector import Error
 import mysql.connector
 from tkinter import *
+from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtCore import QTimer
+from datetime import datetime
 
 app = QtWidgets.QApplication([])
 # conexão com banco de dados
@@ -35,6 +38,14 @@ def cadastros_inicial(): # cadastro de produtos
     principal.close()
     cadastros.show()
 
+def pag_vendas():
+    principal.close()
+    vendas.show()
+    now = datetime.now()
+    horario = now.strftime("%H:%M:%S")
+    timer = vendas.textHora.setText()
+    #página de vendas
+
 def disconect():
     principal.close()
     login.show()
@@ -56,6 +67,7 @@ def exit_geral():
 def voltar():
     estoque.close()
     cadastros.close()
+    vendas.close()
     principal.show()
 
 def buscarProd():
@@ -75,13 +87,14 @@ def buscarProd():
     prodCod = cadastros.prodCod.text()
 
     try:
-        query = f"SELECT {colunas} FROM produtos WHERE cod_produto = {prodCod}"
-        cursor.execute(query)
+        query = f"SELECT {colunas} FROM produtos WHERE cod_produto = %s"
+        values = (prodCod, )
+        cursor.execute(query, values)
 
         selecao = cursor.fetchall()
 
         prodNome = cadastros.prodNome.setText(str(selecao[0][0]))
-        prodTamanho = cadastros.boxTamanho.setText(str(selecao[0][1]))
+        prodTamanho = cadastros.boxTamanho.setCurrentText(str(selecao[0][1]))
         prodModelo = cadastros.prodModelo.setText(str(selecao[0][2]))
         prodCor = cadastros.prodCor.setText(str(selecao[0][3]))
         prodMarca = cadastros.prodMarca.setText(str(selecao[0][4]))
@@ -90,8 +103,10 @@ def buscarProd():
         prodQtd = cadastros.prodQuant.setText(str(selecao[0][7]))
     except:
         erro_produto = QtWidgets.QErrorMessage()
-        erro_produto.showMessage('Código não existente')
+        erro_produto.showMessage('Código não existente [buscarProd]')
         erro_produto.exec_()
+    finally:
+        cursor.close()
 def buscarFun():
     import mysql.connector
 
@@ -130,25 +145,44 @@ def buscarFun():
         
     except:
         erro_login = QtWidgets.QErrorMessage()
-        erro_login.showMessage('Código não existente')
+        erro_login.showMessage(f"Código não existente de {tabela}")
         erro_login.exec_()
 
 def buscarFun2():
+    import mysql.connector
+
+    # Estabelecer a conexão com o banco de dados
+    banco = mysql.connector.connect(
+        host='localhost',
+        port='3306',
+        user='root',
+        password='123456',
+        database='meteoro_calcados'
+    )
     cursor = banco.cursor()
     endCod = cadastros.endCod.text()
-
     colunas = f"cep, estado, cidade, bairro, rua, numero_casa"
-    query = f"SELECT {colunas} FROM endereco WHERE cod_endereco = {endCod}"
-    cursor.execute(query)
-    selecao = cursor.fetchall()
-    cursor.close()
 
-    endCep = cadastros.funCep.setText(str(selecao[0][0]))
-    endEstado = cadastros.funEstado.setText(str(selecao[0][1]))
-    endCidade = cadastros.funCidade.setText(str(selecao[0][2]))
-    endBairro = cadastros.funBairro.setText(str(selecao[0][3]))
-    endRua = cadastros.funRua.setText(str(selecao[0][4]))
-    endNumero = cadastros.funNmr.setText(str(selecao[0][5]))
+    try:
+        query1 = f"SELECT {colunas} FROM endereco WHERE cod_endereco = {endCod}"
+        cursor.execute(query1)
+
+        selecao1 = cursor.fetchall()
+
+        endCep = cadastros.funCep.setText(str(selecao1[0][0]))
+        endEstado = cadastros.funEstado.setText(str(selecao1[0][1]))
+        endCidade = cadastros.funCidade.setText(str(selecao1[0][2]))
+        endBairro = cadastros.funBairro.setText(str(selecao1[0][3]))
+        endRua = cadastros.funRua.setText(str(selecao1[0][4]))
+        endNumero = cadastros.funNmr.setText(str(selecao1[0][5]))
+
+    except:
+        erro_login = QtWidgets.QErrorMessage()
+        erro_login.showMessage(f"Erro de script ou código não existentes em Endereços")
+        erro_login.exec_()
+
+    finally:
+        cursor.close()
 
 #bancos
 def banco_cad_fun():
@@ -233,6 +267,7 @@ def banco_cad_fun():
             erro_salvar.showMessage('Código não existente')
             erro_salvar.exec_()
             print("Código não existente [update]")
+
     else:
         print("Erro nas condições")
 
@@ -279,15 +314,41 @@ def banco_cad_prod():
     prodPrecoVenda = cadastros.prodPrecoVenda.text()
     prodQuant = cadastros.prodQuant.text()
     
+    colunas = "nome_produto, tamanho_produto, modelo_produto, cor_produto, marca_produto, preco_custo, preco_venda, qtd_produto"
 
-    query = "INSERT INTO produtos(nome_produto, tamanho_produto, modelo_produto, cor_produto, marca_produto, preco_custo, preco_venda, qtd_produto) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-    values = (prodNome, boxTamanho, prodModelo, prodCor, prodMarca, prodPrecoCusto, prodPrecoVenda, prodQuant)
-
-    cursor.execute(query, values)
+    if botao == 'salvar':
+        try:
+            query = f"INSERT INTO produtos({colunas}) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+            values = (prodNome, boxTamanho, prodModelo, prodCor, prodMarca, prodPrecoCusto, prodPrecoVenda, prodQuant)
+            cursor.execute(query, values)
+        except:
+            erro_salvar= QtWidgets.QErrorMessage()
+            erro_salvar.showMessage('Código não existente')
+            erro_salvar.exec_()
+            print("Código não existente [Salvar]")
+    elif botao == 'excluir':
+        try:
+            query = f"DELETE FROM produtos WHERE cod_produto = {prodCod}"
+            cursor.execute(query, )
+        except:
+            erro_salvar= QtWidgets.QErrorMessage()
+            erro_salvar.showMessage('Código não existente')
+            erro_salvar.exec_()
+            print("Código não existente [excluir]")
+    elif botao == 'update':
+        try:
+            query = f"UPDATE produtos SET cod_endereco = {prodCod}, nome_produto = {prodNome}, tamanho_produto = {boxTamanho}, modelo_produto = {prodModelo}, cor_produto = {prodCor}, marca_produto = {prodMarca}, preco_custo = {prodPrecoCusto}, preco_venda = {prodPrecoVenda}, qtd_produto = {prodQuant}"
+            cursor.execute(query, )
+        except:
+            erro_salvar= QtWidgets.QErrorMessage()
+            erro_salvar.showMessage('Código não existente')
+            erro_salvar.exec_()
+            print("Código não existente [update]")
+    else:
+        print("Problema no script de produtos.")
 
     banco.commit()
     cursor.close()
-    banco.close()
 
     prodCod = cadastros.prodCod.setText('')
     prodNome = cadastros.prodNome.setText('')
@@ -463,6 +524,7 @@ principal = uic.loadUi('telas\pag_inicial.ui')
 login = uic.loadUi('telas\login.ui')
 estoque = uic.loadUi('telas\estoque.ui')
 cadastros = uic.loadUi('telas\cadastro.ui')
+vendas = uic.loadUi('telas\pag_vendas.ui')
 
 # funções 'botões'
 login.bt_login.clicked.connect(campos_login) # botão 'login' --> tela 'principal'
@@ -498,6 +560,10 @@ estoque.bt_cor.clicked.connect(botao_pesquisa_cor)
 estoque.bt_marca.clicked.connect(botao_pesquisa_marca)
 estoque.bt_qtd.clicked.connect(botao_pesquisa_qtd)
 estoque.bt_geral.clicked.connect(pesquisa_geral_prod)
+
+principal.bt_vendas.clicked.connect(pag_vendas)
+
+vendas.bt_voltar.clicked.connect(voltar)
 
 #exibir telas
 login.show()

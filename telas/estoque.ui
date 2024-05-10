@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>936</width>
-    <height>672</height>
+    <height>0</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -465,6 +465,49 @@
       </size>
      </property>
     </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>0</y>
+       <width>131</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>../images/Meteoro Calçados Logo.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+     <property name="indent">
+      <number>0</number>
+     </property>
+     <property name="openExternalLinks">
+      <bool>false</bool>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::NoTextInteraction</set>
+     </property>
+    </widget>
+    <zorder>titulo_2</zorder>
+    <zorder>logo_2</zorder>
+    <zorder>label</zorder>
+    <zorder>bt_voltar</zorder>
+    <zorder>linePesquisa</zorder>
+    <zorder>label_3</zorder>
+    <zorder>bt_geral</zorder>
+    <zorder>bt_nome</zorder>
+    <zorder>bt_cor</zorder>
+    <zorder>bt_marca</zorder>
+    <zorder>bt_qtd</zorder>
+    <zorder>bt_cod</zorder>
+    <zorder>label_2</zorder>
+    <zorder>bt_tamanho</zorder>
+    <zorder>bt_modelo</zorder>
    </widget>
    <widget class="QFrame" name="frame_2">
     <property name="geometry">
@@ -490,7 +533,7 @@
      <rect>
       <x>0</x>
       <y>160</y>
-      <width>771</width>
+      <width>701</width>
       <height>481</height>
      </rect>
     </property>
@@ -597,6 +640,10 @@
      </property>
     </column>
    </widget>
+   <zorder>frame</zorder>
+   <zorder>line_8</zorder>
+   <zorder>frame_2</zorder>
+   <zorder>dataTree</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
