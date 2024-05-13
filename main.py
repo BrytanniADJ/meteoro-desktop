@@ -2,7 +2,9 @@
 import sys
 from PyQt5 import uic, QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QFileDialog, QApplication, QWidget, QPushButton, QTableWidget, QErrorMessage
+from PyQt5.QtCore import QTimer, QTime
 from sqlite3 import Cursor
+from PyQt5.uic import loadUi
 import mysql
 import mysql.connector
 from mysql.connector import Error
@@ -11,6 +13,7 @@ from tkinter import *
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QTimer
 from datetime import datetime
+import time
 
 app = QtWidgets.QApplication([])
 # conexão com banco de dados
@@ -41,10 +44,11 @@ def cadastros_inicial(): # cadastro de produtos
 def pag_vendas():
     principal.close()
     vendas.show()
-    now = datetime.now()
-    horario = now.strftime("%H:%M:%S")
-    timer = vendas.textHora.setText()
-    #página de vendas
+    while True:
+    hora = vendas.textHora.setText()
+
+
+
 
 def disconect():
     principal.close()
