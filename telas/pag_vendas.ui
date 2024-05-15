@@ -195,7 +195,7 @@ p, li { white-space: pre-wrap; }
      </property>
     </widget>
    </widget>
-   <widget class="QTableWidget" name="tableWidget">
+   <widget class="QTableWidget" name="tableVendas">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -286,7 +286,7 @@ p, li { white-space: pre-wrap; }
      <enum>QFrame::Raised</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="bt_voltar_2">
+   <widget class="QPushButton" name="bt_finalizar">
     <property name="geometry">
      <rect>
       <x>720</x>
@@ -321,12 +321,12 @@ p, li { white-space: pre-wrap; }
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="bt_voltar_3">
+   <widget class="QPushButton" name="bt_salvar">
     <property name="geometry">
      <rect>
       <x>720</x>
-      <y>570</y>
-      <width>221</width>
+      <y>590</y>
+      <width>211</width>
       <height>41</height>
      </rect>
     </property>
@@ -356,11 +356,11 @@ p, li { white-space: pre-wrap; }
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="bt_voltar_4">
+   <widget class="QPushButton" name="bt_excluir">
     <property name="geometry">
      <rect>
       <x>990</x>
-      <y>570</y>
+      <y>590</y>
       <width>211</width>
       <height>41</height>
      </rect>
@@ -391,11 +391,11 @@ p, li { white-space: pre-wrap; }
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="bt_voltar_5">
+   <widget class="QPushButton" name="bt_cancelar">
     <property name="geometry">
      <rect>
-      <x>990</x>
-      <y>640</y>
+      <x>720</x>
+      <y>650</y>
       <width>211</width>
       <height>41</height>
      </rect>
@@ -413,7 +413,7 @@ p, li { white-space: pre-wrap; }
      <string notr="true">background-color: #e8e8e8;</string>
     </property>
     <property name="text">
-     <string>FINALIZAR COMPRA</string>
+     <string>CANCELAR COMPRA</string>
     </property>
     <property name="icon">
      <iconset>
@@ -426,12 +426,12 @@ p, li { white-space: pre-wrap; }
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="bt_voltar_6">
+   <widget class="QPushButton" name="bt_">
     <property name="geometry">
      <rect>
-      <x>720</x>
-      <y>640</y>
-      <width>221</width>
+      <x>990</x>
+      <y>650</y>
+      <width>211</width>
       <height>41</height>
      </rect>
     </property>
@@ -467,7 +467,7 @@ p, li { white-space: pre-wrap; }
       <x>720</x>
       <y>140</y>
       <width>481</width>
-      <height>411</height>
+      <height>441</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -482,7 +482,7 @@ border-color: #e3e3e3;</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="lineCod">
      <property name="geometry">
       <rect>
        <x>220</x>
@@ -490,6 +490,14 @@ border-color: #e3e3e3;</string>
        <width>251</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>11</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">border-width: 1px;
@@ -504,14 +512,22 @@ background-color: #ffffff;</string>
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_2">
+    <widget class="QLineEdit" name="lineQuant">
      <property name="geometry">
       <rect>
        <x>220</x>
-       <y>59</y>
+       <y>60</y>
        <width>251</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>11</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">border-width: 1px;
@@ -582,11 +598,11 @@ background-color: #ffffff;</string>
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_3">
+    <widget class="QLineEdit" name="lineTotal">
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>359</y>
+       <y>390</y>
        <width>341</width>
        <height>41</height>
       </rect>
@@ -612,7 +628,7 @@ color: #737373;</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>360</y>
+       <y>391</y>
        <width>121</width>
        <height>41</height>
       </rect>
@@ -636,14 +652,22 @@ color: #737373;</string>
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_4">
+    <widget class="QLineEdit" name="lineCP1">
      <property name="geometry">
       <rect>
        <x>220</x>
-       <y>160</y>
+       <y>190</y>
        <width>251</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>11</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">border-width: 1px;
@@ -658,14 +682,22 @@ background-color: #ffffff;</string>
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_5">
+    <widget class="QLineEdit" name="lineCP2">
      <property name="geometry">
       <rect>
        <x>220</x>
-       <y>210</y>
+       <y>240</y>
        <width>251</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>11</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">border-width: 1px;
@@ -684,9 +716,9 @@ background-color: #ffffff;</string>
      <property name="geometry">
       <rect>
        <x>60</x>
-       <y>160</y>
+       <y>200</y>
        <width>161</width>
-       <height>41</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="font">
@@ -702,7 +734,7 @@ background-color: #ffffff;</string>
 </string>
      </property>
      <property name="text">
-      <string>Quantidade</string>
+      <string>Códigos</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -712,8 +744,94 @@ background-color: #ffffff;</string>
      <property name="geometry">
       <rect>
        <x>60</x>
-       <y>200</y>
+       <y>230</y>
        <width>161</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>14</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: none;
+</string>
+     </property>
+     <property name="text">
+      <string>Promocionais</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>110</y>
+       <width>161</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>14</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: none;
+</string>
+     </property>
+     <property name="text">
+      <string>Valor UNIT</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineUnit">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>110</y>
+       <width>251</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>11</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-width: 1px;
+border-style: solid;
+border-color:#e3e3e3;
+background-color: #ffffff;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_12">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>300</y>
+       <width>121</width>
        <height>41</height>
       </rect>
      </property>
@@ -730,10 +848,84 @@ background-color: #ffffff;</string>
 </string>
      </property>
      <property name="text">
-      <string>Quantidade</string>
+      <string>SUBTOTAL</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineSTotal">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>300</y>
+       <width>341</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: none;
+color: #737373;</string>
+     </property>
+     <property name="text">
+      <string>R$</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineDesc">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>340</y>
+       <width>341</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: none;
+color: rgb(255, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string>- R$</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushPesquisa">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>61</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: none;
+background-color: rgb(248, 248, 248);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normalon>../images/lupa-pesquisa.png</normalon>
+      </iconset>
      </property>
     </widget>
    </widget>

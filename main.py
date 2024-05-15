@@ -518,7 +518,85 @@ def pesquisa_geral_prod():
     for i in range(len(selecao)):
         for j in range(7):
             estoque.dataTree.setItem(i, j, QtWidgets.QTableWidgetItem(str(selecao[i][j])))
-# Def erros
+
+# PÁGINA VENDAS --------------------------
+def vendas_push():
+    global botao
+    import mysql.connector
+
+    banco = mysql.connector.connect(
+        host='localhost',
+        port='3306',
+        user='root',
+        password='123456',
+        database='meteoro_calcados'
+    )
+    
+    cursor = banco.cursor()
+    lineCod = vendas.lineCod.text()
+    lineUnit = vendas.lineUnit.text()
+    lineQuant = vendas.lineQuant.text()
+    lineDesc = vendas.lineDesc.text()
+
+    Cp1 = vendas.lineCP1.text()
+    Cp2 = vendas.lineCP2.text()
+
+    lineSTotal = vendas.lineSTotal.text()
+    lineDesc = vendas.lineDesc.text()
+    lineTotal = vendas.lineTotal.text()
+
+    data = datetime.now().date()
+    data = data.strftime("%d/%m/%Y")
+    hora = datetime.now().time()
+    hora = hora.strftime("%H:%M:%S")
+
+    try:
+        cursor.execute(f"SELECT preco_venda FROM produtos WHERE cod_produto = {lineCod}")
+        selecao_venda = cursor.fetchall()
+        lineUnit = vendas.lineUnit.setText(str(selecao_venda[0][0]))
+
+        cursor.execute(f"SELECT nome_produto FROM produtos WHERE cod_produto = {lineCod}")
+        selecao_item = cursor.fetchall()
+    except:
+        erro_login = QtWidgets.QErrorMessage()
+        erro_login.showMessage(f"Código não existente")
+        erro_login.exec_()
+        print("Vendas - Cursor execute - falha")
+
+
+    if botao == 'salvar':
+        try:
+            query = "INSERT INTO vendas VALUES (%s, %s, %s, %s, %s, %s)"
+            values = (lineCod, selecao_item, selecao_venda, lineQuant, data, hora)
+            cursor.execute(query, values) # terminar página de vendas
+    # elif botao == '':
+
+    # elif botao == '':
+
+    # elif botao == '':
+
+    # else:
+
+def vendas_salvar():
+    global botao
+    botao = 'salvar'
+    vendas_push()
+
+def vendas_excluir():
+    global botao
+    botao = 'excluir'
+    vendas_push()
+
+def vendas_cancelar():
+    global botao
+    botao = 'cancelar'
+    vendas_push()
+
+def vendas_finalizar():
+    global botao
+    botao = 'finalizar'
+    vendas_push()
+
 
 # definição das viriáveis
 principal = uic.loadUi('telas\pag_inicial.ui')
@@ -565,6 +643,11 @@ estoque.bt_geral.clicked.connect(pesquisa_geral_prod)
 principal.bt_vendas.clicked.connect(pag_vendas)
 
 vendas.bt_voltar.clicked.connect(voltar)
+vendas.pushPesquisa.clicked.connect(vendas_push)
+vendas.bt_salvar.clicked.connect(vendas_salvar)
+vendas.bt_excluir.clicked.connect(vendas_excluir)
+vendas.bt_cancelar.clicked.connect(vendas_cancelar)
+vendas.bt_finalizar.clicked.connect(vendas_finalizar)
 
 #exibir telas
 login.show()
