@@ -289,9 +289,9 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="bt_finalizar">
     <property name="geometry">
      <rect>
-      <x>720</x>
+      <x>990</x>
       <y>710</y>
-      <width>481</width>
+      <width>211</width>
       <height>41</height>
      </rect>
     </property>
@@ -325,7 +325,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>720</x>
-      <y>590</y>
+      <y>650</y>
       <width>211</width>
       <height>41</height>
      </rect>
@@ -360,7 +360,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>990</x>
-      <y>590</y>
+      <y>650</y>
       <width>211</width>
       <height>41</height>
      </rect>
@@ -395,7 +395,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>720</x>
-      <y>650</y>
+      <y>710</y>
       <width>211</width>
       <height>41</height>
      </rect>
@@ -426,48 +426,13 @@ p, li { white-space: pre-wrap; }
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="bt_">
-    <property name="geometry">
-     <rect>
-      <x>990</x>
-      <y>650</y>
-      <width>211</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: #e8e8e8;</string>
-    </property>
-    <property name="text">
-     <string>FINALIZAR COMPRA</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>../../../../../964742/Downloads/image (1).png</normaloff>../../../../../964742/Downloads/image (1).png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>55</width>
-      <height>55</height>
-     </size>
-    </property>
-   </widget>
    <widget class="QFrame" name="frame_4">
     <property name="geometry">
      <rect>
       <x>720</x>
       <y>140</y>
       <width>481</width>
-      <height>441</height>
+      <height>501</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -487,7 +452,7 @@ border-color: #e3e3e3;</string>
       <rect>
        <x>220</x>
        <y>10</y>
-       <width>251</width>
+       <width>51</width>
        <height>31</height>
       </rect>
      </property>
@@ -517,7 +482,7 @@ background-color: #ffffff;</string>
       <rect>
        <x>220</x>
        <y>60</y>
-       <width>251</width>
+       <width>51</width>
        <height>31</height>
       </rect>
      </property>
@@ -602,7 +567,7 @@ background-color: #ffffff;</string>
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>390</y>
+       <y>450</y>
        <width>341</width>
        <height>41</height>
       </rect>
@@ -628,7 +593,7 @@ color: #737373;</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>391</y>
+       <y>451</y>
        <width>121</width>
        <height>41</height>
       </rect>
@@ -825,12 +790,15 @@ background-color: #ffffff;</string>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QLabel" name="label_12">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>300</y>
+       <y>360</y>
        <width>121</width>
        <height>41</height>
       </rect>
@@ -858,7 +826,7 @@ background-color: #ffffff;</string>
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>300</y>
+       <y>360</y>
        <width>341</width>
        <height>41</height>
       </rect>
@@ -884,7 +852,7 @@ color: #737373;</string>
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>340</y>
+       <y>400</y>
        <width>341</width>
        <height>51</height>
       </rect>
@@ -906,26 +874,73 @@ color: rgb(255, 0, 0);</string>
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushPesquisa">
+    <widget class="QLineEdit" name="lineResta">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>280</x>
        <y>10</y>
-       <width>61</width>
+       <width>191</width>
        <height>31</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>11</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
      <property name="styleSheet">
-      <string notr="true">border: none;
-background-color: rgb(248, 248, 248);</string>
+      <string notr="true">border-width: 1px;
+border-style: solid;
+border-color:#e3e3e3;
+background-color: #ffffff;</string>
+     </property>
+     <property name="inputMask">
+      <string/>
      </property>
      <property name="text">
       <string/>
      </property>
-     <property name="icon">
-      <iconset>
-       <normalon>../images/lupa-pesquisa.png</normalon>
-      </iconset>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineValor">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>60</y>
+       <width>191</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>11</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-width: 1px;
+border-style: solid;
+border-color:#e3e3e3;
+background-color: #ffffff;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>

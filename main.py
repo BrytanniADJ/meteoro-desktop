@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QTimer
 from datetime import datetime
 import time
-import datetime
+from datetime import datetime
 import threading
 
 app = QtWidgets.QApplication([])
@@ -42,10 +42,6 @@ def inicial_estoque(): # cadastros
 def cadastros_inicial(): # cadastro de produtos
     principal.close()
     cadastros.show()
-
-def pag_vendas():
-    principal.close()
-    vendas.show()
 
 def disconect():
     principal.close()
@@ -521,7 +517,6 @@ def pesquisa_geral_prod():
 
 # PÁGINA VENDAS --------------------------
 def vendas_push():
-    global botao
     import mysql.connector
 
     banco = mysql.connector.connect(
@@ -534,9 +529,44 @@ def vendas_push():
     
     cursor = banco.cursor()
     lineCod = vendas.lineCod.text()
+
+    if vendas.lineCod.text() != '':
+        try:
+            cursor.execute(f"SELECT preco_venda, CONCAT(nome_produto,' - [ ',qtd_produto,' ]') FROM produtos WHERE cod_produto = {lineCod}")
+            global selecao_venda
+            selecao_venda = cursor.fetchall()
+            lineUnit = vendas.lineUnit.setText(str(selecao_venda[0][0]))
+            lineResta = vendas.lineResta.setText(str(selecao_venda[0][1]))
+
+        except:
+            erro_login = QtWidgets.QErrorMessage()
+            erro_login.showMessage(f"Código não existente")
+            erro_login.exec_()
+            print("Vendas - Cursor execute - falha")
+
+    cursor.close()
+    pag_vendas()
+
+def vendas_push2():
+    global botao
+
+    import mysql.connector
+
+    banco = mysql.connector.connect(
+        host='localhost',
+        port='3306',
+        user='root',
+        password='123456',
+        database='meteoro_calcados'
+    )
+    
+    cursor = banco.cursor()
+
+    lineCod = vendas.lineCod.text()
     lineUnit = vendas.lineUnit.text()
     lineQuant = vendas.lineQuant.text()
     lineDesc = vendas.lineDesc.text()
+    lineResta = vendas.lineResta.text()
 
     Cp1 = vendas.lineCP1.text()
     Cp2 = vendas.lineCP2.text()
@@ -544,31 +574,53 @@ def vendas_push():
     lineSTotal = vendas.lineSTotal.text()
     lineDesc = vendas.lineDesc.text()
     lineTotal = vendas.lineTotal.text()
+    vendas_total = float(lineQuant) * float(lineUnit)
 
-    data = datetime.now().date()
-    data = data.strftime("%d/%m/%Y")
-    hora = datetime.now().time()
-    hora = hora.strftime("%H:%M:%S")
+    agora = datetime.now()
+    data = agora.strftime("%d/%m/%Y")
+    hora = agora.strftime("%H:%M:%S")
 
-    try:
-        cursor.execute(f"SELECT preco_venda FROM produtos WHERE cod_produto = {lineCod}")
-        selecao_venda = cursor.fetchall()
-        lineUnit = vendas.lineUnit.setText(str(selecao_venda[0][0]))
-
-        cursor.execute(f"SELECT nome_produto FROM produtos WHERE cod_produto = {lineCod}")
-        selecao_item = cursor.fetchall()
-    except:
-        erro_login = QtWidgets.QErrorMessage()
-        erro_login.showMessage(f"Código não existente")
-        erro_login.exec_()
-        print("Vendas - Cursor execute - falha")
-
+    cursor.execute(f"SELECT nome_produto FROM produtos WHERE cod_produto = {lineCod}")
+    selecao_item = cursor.fetchall()
 
     if botao == 'salvar':
         try:
-            query = "INSERT INTO vendas VALUES (%s, %s, %s, %s, %s, %s)"
-            values = (lineCod, selecao_item, selecao_venda, lineQuant, data, hora)
-            cursor.execute(query, values) # terminar página de vendas
+            query = "INSERT INTO vendas VALUES (%s, %s, %s, %s, %s, %s, %s)"
+            values = (lineCod, lineResta, lineUnit, lineQuant, data, hora, vendas_total)
+            cursor.execute(query, values)
+            banco.commit()
+
+            lineCod = vendas.lineCod.setText('')
+            lineUnit = vendas.lineUnit.setText('')
+            lineQuant = vendas.lineQuant.setText('')
+            lineResta = vendas.lineResta.setText('')
+            lineValor = vendas.lineValor.setText('')
+
+            cursor.execute("SELECT cod, Item, valor_unit, quantidade, data, hora FROM vendas")
+            selecao = cursor.fetchall()
+
+            vendas.tableVendas.setRowCount(len(selecao))
+            vendas.tableVendas.setColumnCount(6)
+
+            for i in range(len(selecao)):
+                for j in range(6):
+                    vendas.tableVendas.setItem(i, j, QtWidgets.QTableWidgetItem(str(selecao[i][j])))
+
+        except:
+            erro_login = QtWidgets.QErrorMessage()
+            erro_login.showMessage(f"Código não existente")
+            erro_login.exec_()
+            print("Vendas - For i, j - falha")
+
+        finally:
+            cursor.execute("SELECT SUM(total) FROM vendas")
+            resultado = cursor.fetchall()
+            
+            total = resultado[0][0]
+
+            lineTotal = vendas.lineTotal.setText(f"{total}")
+            cursor.close()
+        
     # elif botao == '':
 
     # elif botao == '':
@@ -577,25 +629,73 @@ def vendas_push():
 
     # else:
 
+def vendas_campo():
+    if vendas.lineQuant.text() != '':
+        lineQuant = float(vendas.lineQuant.text())
+        lineUnit = float(vendas.lineUnit.text())
+
+        valor = round(lineQuant * lineUnit, 2)
+        lineValor = vendas.lineValor.setText(f"{valor}")
+
+def vendas_campo1():
+    global total
+    import mysql.connector
+    banco = mysql.connector.connect(
+        host='localhost',
+        port='3306',
+        user='root',
+        password='123456',
+        database='meteoro_calcados'
+    )
+    cursor = banco.cursor()
+    cp1 = vendas.lineCP1.text()
+    cursor.execute(f"SELECT desconto FROM promocao WHERE cod = {cp1}")
+    global promo1
+    promo1 = 100 * (cursor.fetchall())
+
+    total = vendas.lineTotal.setText(f"{total - promo1}")
+
+def vendas_campo2():
+    global total
+    global promo1
+    import mysql.connector
+    banco = mysql.connector.connect(
+        host='localhost',
+        port='3306',
+        user='root',
+        password='123456',
+        database='meteoro_calcados'
+    )
+    cursor = banco.cursor()
+    cp2 = vendas.lineCP2.text()
+    cursor.execute(f"SELECT desconto FROM promocao WHERE cod = {cp2}")
+    promo2 = 100 * (cursor.fetchall())
+
+    total = vendas.lineTotal.setText(f"{total - (promo1 + promo2)}")
+
+def pag_vendas():
+    principal.close()
+    vendas.show()
+
 def vendas_salvar():
     global botao
     botao = 'salvar'
-    vendas_push()
+    vendas_push2()
 
 def vendas_excluir():
     global botao
     botao = 'excluir'
-    vendas_push()
+    vendas_push2()
 
 def vendas_cancelar():
     global botao
     botao = 'cancelar'
-    vendas_push()
+    vendas_push2()
 
 def vendas_finalizar():
     global botao
     botao = 'finalizar'
-    vendas_push()
+    vendas_push2()
 
 
 # definição das viriáveis
@@ -643,11 +743,15 @@ estoque.bt_geral.clicked.connect(pesquisa_geral_prod)
 principal.bt_vendas.clicked.connect(pag_vendas)
 
 vendas.bt_voltar.clicked.connect(voltar)
-vendas.pushPesquisa.clicked.connect(vendas_push)
+vendas.lineCod.editingFinished.connect(vendas_push)
+vendas.lineQuant.editingFinished.connect(vendas_campo)
+# vendas.lineCP2.editingFinished.connect(vendas_campo1)
+# vendas.lineCP2.editingFinished.connect(vendas_campo1)
 vendas.bt_salvar.clicked.connect(vendas_salvar)
 vendas.bt_excluir.clicked.connect(vendas_excluir)
 vendas.bt_cancelar.clicked.connect(vendas_cancelar)
 vendas.bt_finalizar.clicked.connect(vendas_finalizar)
+# vendas.bt_Atualiza.clicked.connect()
 
 #exibir telas
 login.show()
