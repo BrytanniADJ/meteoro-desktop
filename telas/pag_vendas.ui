@@ -501,7 +501,7 @@ border-color:#e3e3e3;
 background-color: #ffffff;</string>
      </property>
      <property name="text">
-      <string/>
+      <string>1</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -583,7 +583,7 @@ background-color: #ffffff;</string>
 color: #737373;</string>
      </property>
      <property name="text">
-      <string>R$</string>
+      <string/>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -621,37 +621,7 @@ color: #737373;</string>
      <property name="geometry">
       <rect>
        <x>220</x>
-       <y>190</y>
-       <width>251</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial</family>
-       <pointsize>11</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border-width: 1px;
-border-style: solid;
-border-color:#e3e3e3;
-background-color: #ffffff;</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineCP2">
-     <property name="geometry">
-      <rect>
-       <x>220</x>
-       <y>240</y>
+       <y>210</y>
        <width>251</width>
        <height>31</height>
       </rect>
@@ -699,7 +669,7 @@ background-color: #ffffff;</string>
 </string>
      </property>
      <property name="text">
-      <string>Códigos</string>
+      <string>Código</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -711,7 +681,7 @@ background-color: #ffffff;</string>
        <x>60</x>
        <y>230</y>
        <width>161</width>
-       <height>31</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
@@ -727,7 +697,7 @@ background-color: #ffffff;</string>
 </string>
      </property>
      <property name="text">
-      <string>Promocionais</string>
+      <string>Promocional</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -785,7 +755,7 @@ border-color:#e3e3e3;
 background-color: #ffffff;</string>
      </property>
      <property name="text">
-      <string/>
+      <string>1</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -842,7 +812,7 @@ background-color: #ffffff;</string>
 color: #737373;</string>
      </property>
      <property name="text">
-      <string>R$</string>
+      <string/>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -868,7 +838,7 @@ color: #737373;</string>
 color: rgb(255, 0, 0);</string>
      </property>
      <property name="text">
-      <string>- R$</string>
+      <string/>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

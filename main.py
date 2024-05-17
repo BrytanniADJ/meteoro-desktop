@@ -549,7 +549,6 @@ def vendas_push():
 
 def vendas_push2():
     global botao
-
     import mysql.connector
 
     banco = mysql.connector.connect(
@@ -569,12 +568,10 @@ def vendas_push2():
     lineResta = vendas.lineResta.text()
 
     Cp1 = vendas.lineCP1.text()
-    Cp2 = vendas.lineCP2.text()
 
     lineSTotal = vendas.lineSTotal.text()
     lineDesc = vendas.lineDesc.text()
     lineTotal = vendas.lineTotal.text()
-    vendas_total = float(lineQuant) * float(lineUnit)
 
     agora = datetime.now()
     data = agora.strftime("%d/%m/%Y")
@@ -585,16 +582,13 @@ def vendas_push2():
 
     if botao == 'salvar':
         try:
+            lineUnit = float(vendas.lineUnit.text())
+            lineQuant = float(vendas.lineQuant.text())
+            vendas_total = lineQuant * lineUnit
             query = "INSERT INTO vendas VALUES (%s, %s, %s, %s, %s, %s, %s)"
             values = (lineCod, lineResta, lineUnit, lineQuant, data, hora, vendas_total)
             cursor.execute(query, values)
             banco.commit()
-
-            lineCod = vendas.lineCod.setText('')
-            lineUnit = vendas.lineUnit.setText('')
-            lineQuant = vendas.lineQuant.setText('')
-            lineResta = vendas.lineResta.setText('')
-            lineValor = vendas.lineValor.setText('')
 
             cursor.execute("SELECT cod, Item, valor_unit, quantidade, data, hora FROM vendas")
             selecao = cursor.fetchall()
@@ -617,17 +611,42 @@ def vendas_push2():
             resultado = cursor.fetchall()
             
             total = resultado[0][0]
+            Stotal = resultado[0][0]
 
             lineTotal = vendas.lineTotal.setText(f"{total}")
-            cursor.close()
+            lineSTotal = vendas.lineSTotal.setText(f"{Stotal}")
         
-    # elif botao == '':
+    elif botao == 'excluir':
+        cursor.execute(f"DELETE FROM vendas WHERE cod = {lineCod}")
+        banco.commit()
 
-    # elif botao == '':
+        lineCod = vendas.lineCod.setText('')
+        cursor.execute("SELECT cod, Item, valor_unit, quantidade, data, hora FROM vendas")
+        selecao = cursor.fetchall()
 
-    # elif botao == '':
+        vendas.tableVendas.setRowCount(len(selecao))
+        vendas.tableVendas.setColumnCount(6)
+
+        for i in range(len(selecao)):
+            for j in range(6):
+                vendas.tableVendas.setItem(i, j, QtWidgets.QTableWidgetItem(str(selecao[i][j])))
+
+    elif botao == 'cancelar':
+        cursor.execute(f"TRUNCATE TABLE vendas")
+        banco.commit()
+        vendas.close()
+        vendas.show()
+
+    # elif botao == 'finalizar':
 
     # else:
+    lineCod = vendas.lineCod.setText('')
+    lineUnit = vendas.lineUnit.setText('')
+    lineQuant = vendas.lineQuant.setText('0')
+    lineResta = vendas.lineResta.setText('')
+    lineValor = vendas.lineValor.setText('')
+
+    cursor.close()
 
 def vendas_campo():
     if vendas.lineQuant.text() != '':
@@ -638,8 +657,10 @@ def vendas_campo():
         lineValor = vendas.lineValor.setText(f"{valor}")
 
 def vendas_campo1():
-    global total
+    global desconto_cp1
+    desconto_cp1 = 0
     import mysql.connector
+    from PyQt5 import QtWidgets
     banco = mysql.connector.connect(
         host='localhost',
         port='3306',
@@ -649,29 +670,34 @@ def vendas_campo1():
     )
     cursor = banco.cursor()
     cp1 = vendas.lineCP1.text()
-    cursor.execute(f"SELECT desconto FROM promocao WHERE cod = {cp1}")
-    global promo1
-    promo1 = 100 * (cursor.fetchall())
+    
+    if cp1 != '':
+        try:
+            query = "SELECT desconto FROM promocao WHERE cod = %s"
+            cursor.execute(query, (cp1,))
+            result = cursor.fetchone()
+            
+            if result:
+                desconto_cp1 = (float(vendas.lineSTotal.text()) * float(result[0]))
+                total -= desconto_cp1
+                desc = vendas.lineDesc.setText(f"{desconto_cp1:.2f}")
+                vendas.lineTotal.setText(f"{total:.2f}")
+            else:
+                raise ValueError("Código não existente")
 
-    total = vendas.lineTotal.setText(f"{total - promo1}")
-
-def vendas_campo2():
-    global total
-    global promo1
-    import mysql.connector
-    banco = mysql.connector.connect(
-        host='localhost',
-        port='3306',
-        user='root',
-        password='123456',
-        database='meteoro_calcados'
-    )
-    cursor = banco.cursor()
-    cp2 = vendas.lineCP2.text()
-    cursor.execute(f"SELECT desconto FROM promocao WHERE cod = {cp2}")
-    promo2 = 100 * (cursor.fetchall())
-
-    total = vendas.lineTotal.setText(f"{total - (promo1 + promo2)}")
+        except ValueError as e:
+            erro_login = QtWidgets.QErrorMessage()
+            erro_login.showMessage(str(e))
+            erro_login.exec_()
+            print("Vendas, promoção campo 1")
+        except mysql.connector.Error as err:
+            erro_login = QtWidgets.QErrorMessage()
+            erro_login.showMessage(f"Erro de banco de dados: {err}")
+            erro_login.exec_()
+            print(f"Erro de banco de dados: {err}")
+        finally:
+            cursor.close()
+            banco.close()
 
 def pag_vendas():
     principal.close()
@@ -696,7 +722,6 @@ def vendas_finalizar():
     global botao
     botao = 'finalizar'
     vendas_push2()
-
 
 # definição das viriáveis
 principal = uic.loadUi('telas\pag_inicial.ui')
@@ -745,8 +770,7 @@ principal.bt_vendas.clicked.connect(pag_vendas)
 vendas.bt_voltar.clicked.connect(voltar)
 vendas.lineCod.editingFinished.connect(vendas_push)
 vendas.lineQuant.editingFinished.connect(vendas_campo)
-# vendas.lineCP2.editingFinished.connect(vendas_campo1)
-# vendas.lineCP2.editingFinished.connect(vendas_campo1)
+vendas.lineCP1.editingFinished.connect(vendas_campo1)
 vendas.bt_salvar.clicked.connect(vendas_salvar)
 vendas.bt_excluir.clicked.connect(vendas_excluir)
 vendas.bt_cancelar.clicked.connect(vendas_cancelar)
