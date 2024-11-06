@@ -724,11 +724,11 @@ def vendas_finalizar():
     vendas_push2()
 
 # definição das viriáveis
-principal = uic.loadUi('telas\pag_inicial.ui')
-login = uic.loadUi('telas\login.ui')
-estoque = uic.loadUi('telas\estoque.ui')
-cadastros = uic.loadUi('telas\cadastro.ui')
-vendas = uic.loadUi('telas\pag_vendas.ui')
+principal = uic.loadUi('telas/pag_inicial.ui')
+login = uic.loadUi('telas/login.ui')
+estoque = uic.loadUi('telas/estoque.ui')
+cadastros = uic.loadUi('telas/cadastro.ui')
+vendas = uic.loadUi('telas/pag_vendas.ui')
 
 # funções 'botões'
 login.bt_login.clicked.connect(campos_login) # botão 'login' --> tela 'principal'
