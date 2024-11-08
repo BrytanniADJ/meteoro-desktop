@@ -8,7 +8,6 @@ from PyQt5.uic import loadUi
 import mysql
 import mysql.connector
 from mysql.connector import Error
-import mysql.connector
 from tkinter import *
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QTimer
@@ -19,20 +18,20 @@ import threading
 
 app = QtWidgets.QApplication([])
 # conexão com banco de dados
-banco = mysql.connector.connect(
-    host = 'localhost',
-    port = '3306',
-    user = 'root',
-    password = '123456',
-    database = 'meteoro_calcados'
-)
+# banco = mysql.connector.connect(
+#     host = 'localhost',
+#     port = '3306',
+#     user = 'root',
+#     password = '123456',
+#     database = 'meteoro_calcados'
+# )
 
 # definição de funções (telas) login.ui
 def chamar_principal():
     global usuario
     login.close()
     principal.show()
-    principal.text_usu.setText(f"{usuario}")
+#    principal.text_usu.setText(f"{usuario}")
 # pag-inicial.ui
 def inicial_estoque(): # cadastros
     principal.close()
@@ -358,28 +357,28 @@ def banco_cad_prod():
 
 # definição de funções (campos)
 def campos_login():
-    global usuario
-    usuario = "Bianca" # substituir quando finalizar o programa
     chamar_principal()
+    global usuario
+#    usuario = "Bianca" # substituir quando finalizar o programa
     # criar um cursor
-    cursor = banco.cursor()
+#    cursor = banco.cursor()
 
     # consulta (query) para verificar login
-    query = "SELECT * FROM funcionario WHERE CONCAT(nome_funcionario, ' ', sobrenome_funcionario) = %s AND REGEXP_REPLACE(cpf_funcionario, '[^0-9]', '') = %s"
-    parametros = (login.inserir_usuario.text(), login.inserir_senha.text()) # parametro de comparação
-    # usuario = f"{login.inserir_usuario.text()},' ',{login.inserir_senha.text()}"
-    # executar consultaadfd
-    cursor.execute(query, parametros)
+    # query = "SELECT * FROM funcionario WHERE CONCAT(nome_funcionario, ' ', sobrenome_funcionario) = %s AND REGEXP_REPLACE(cpf_funcionario, '[^0-9]', '') = %s"
+    # parametros = (login.inserir_usuario.text(), login.inserir_senha.text()) # parametro de comparação
+    # # usuario = f"{login.inserir_usuario.text()},' ',{login.inserir_senha.text()}"
+    # # executar consultaadfd
+    # cursor.execute(query, parametros)
 
-    if cursor.fetchone() is not None:
-        chamar_principal()
-    else:
-        erro_login = QtWidgets.QErrorMessage()
-        erro_login.showMessage('Usuário e/ou senha inválidos.')
-        erro_login.exec_()
+    # if cursor.fetchone() is not None:
+    #     chamar_principal()
+    # else:
+    #     erro_login = QtWidgets.QErrorMessage()
+    #     erro_login.showMessage('Usuário e/ou senha inválidos.')
+    #     erro_login.exec_()
 
-    cursor.close()
-    banco.close()
+    # cursor.close()
+    # banco.close()
 
 # atualização, exclusão, salvamento...
 def salvar_prod():
