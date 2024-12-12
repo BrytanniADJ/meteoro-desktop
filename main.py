@@ -17,14 +17,14 @@ from datetime import datetime
 import threading
 
 app = QtWidgets.QApplication([])
-# conexão com banco de dados
-# banco = mysql.connector.connect(
-#     host = 'localhost',
-#     port = '3306',
-#     user = 'root',
-#     password = '123456',
-#     database = 'meteoro_calcados'
-# )
+#conexão com banco de dados
+banco = mysql.connector.connect(
+    host = 'localhost',
+    port = '3306',
+    user = 'root',
+    password = '123456',
+    database = 'meteoro_calcados'
+)
 
 # definição de funções (telas) login.ui
 def chamar_principal():
